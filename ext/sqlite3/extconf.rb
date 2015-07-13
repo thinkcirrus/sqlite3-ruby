@@ -2,9 +2,19 @@ ENV['RC_ARCHS'] = '' if RUBY_PLATFORM =~ /darwin/
 
 require 'mkmf'
 
+
+CONFIG["CC"] = "gcc -m64"
+CONFIG["CXX"] = "g++ -m64"
+CONFIG["CFLAGS"] = "-m64 -xO3 -xbuiltin=%all -xinline=auto -xprefetch=auto -xdepend -fPIC"
+#CONFIG["CFLAGS"] = "-m64 -xO3 -xbuiltin=%all -xinline=auto -xprefetch=auto -xdepend -D_FILE_OFFSET_BITS=64 -fPIC"
+CONFIG["LDFLAGS"] = "-m64 -L. -L/usr/sfw/lib -R/usr/sfw/lib"
+CONFIG["CPPFLAGS"] = "-I/usr/sfw/include -I/usr/include"
+CONFIG["CPP"] = "gcc -E"
+CONFIG["CCDLFLAGS"] = "-fPIC"
+
 # :stopdoc:
 
-RbConfig::MAKEFILE_CONFIG['CC'] = ENV['CC'] if ENV['CC']
+# RbConfig::MAKEFILE_CONFIG['CC'] = ENV['CC'] if ENV['CC']
 
 # --with-sqlite3-{dir,include,lib}
 dir_config("sqlite3")
